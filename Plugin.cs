@@ -1,24 +1,16 @@
 ﻿using BepInEx;
-using BepInEx.Logging;
 using HarmonyLib;
 using Sunless.Game.ApplicationProviders;
 using Sunless.Game.Entities.Geography;
-using Sunless.Game.UI.Storylet;
 
 namespace CorrespondentFix;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
-    public ManualLogSource Logga;
-    public static Plugin Instance;
-
     private void Awake()
     {
-        // Plugin startup logic
-        Logga = base.Logger;
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
-        Instance = this;
 
         Harmony.CreateAndPatchAll(typeof(CorrespondentChartPatch));
     }
@@ -31,13 +23,16 @@ public static class CorrespondentChartPatch
     [HarmonyPatch("Chart")]
     private static bool PrefixChart(ref SerializableTileConfig __result, LegacyProvider __instance)
     {
-        Plugin.Instance.Logga.LogInfo("CorrespondentChartPatch PrefixChart");
-
-        if (__instance.Correspondent.Selected)
+        if (!__instance.Correspondent.Selected)
+        {
+            __result = null; // Return null, the game generates a new chart
+        }
+        else
         {
             SerializableTileConfig deadCharacterTiles = __instance.DeadCharacter.TileConfig;
             foreach (TileInstance tileInstance in deadCharacterTiles.Tiles)
             {
+                // Clear all discovered curiosities from the tile
                 tileInstance.DiscoveredFlavourItems.Clear();
                 tileInstance.ProceduralTerrain.Clear();
                 tileInstance.ProceduralDecals.Clear();
@@ -47,10 +42,8 @@ public static class CorrespondentChartPatch
                 tileInstance.Discoveredphenomena.Clear();
                 tileInstance.AbyssBuff.Clear();
             }
-            __result = deadCharacterTiles;
-            return false; // Don't run the original function
+            __result = deadCharacterTiles; // Return the modified tiles
         }
-        __result = null;
 
         return false; // Don't run the original function
     }
