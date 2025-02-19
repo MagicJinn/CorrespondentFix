@@ -2,7 +2,7 @@
 
 Mod to remove the noob-trap of Correspondent legacy, and make it actually useful.
 
-## What It Does
+## Overview
 
 CorrespondentFix tweaks how the Correspondent legacy works in Sunless Sea. Previously, it only preserved your old chart, allowing you to see the locations of all previously discovered tiles. However, this also retained discovered landmarks, preventing new captains from gaining the fragments typically earned from discovering them. This created a giant noob-trap. CorrespondentFix fixes this by removing all discovery data from each tile in the dead characters' chart while preserving its layout and the fog state on the map screen.
 
