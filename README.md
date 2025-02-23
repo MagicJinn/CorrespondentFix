@@ -11,7 +11,7 @@ CorrespondentFix tweaks how the Correspondent legacy works in Sunless Sea. Previ
 To develop and build the plugin, there are a couple of prerequisites. Clone the repository:
 
 ```bash
-https://github.com/MagicJinn/SDLS.git
+git clone https://github.com/MagicJinn/SDLS.git
 cd SDLS
 ```
 
