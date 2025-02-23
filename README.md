@@ -15,7 +15,7 @@ https://github.com/MagicJinn/SDLS.git
 cd SDLS
 ```
 
-After this, you need to acquire a DLLs CorrespondentFix relies on. Create a `dependencies` folder, and find `Sunless.Game.dll` in your `SunlessSea\Sunless Sea_Data\Managed` folder. Copy it into the `dependencies` folder. After this, you should be able to compile the project with the following command:
+After this, you need to acquire a DLL CorrespondentFix relies on. Create a `dependencies` folder, and find `Sunless.Game.dll` in your `SunlessSea\Sunless Sea_Data\Managed` folder. Copy it into the `dependencies` folder. After this, you should be able to compile the project with the following command:
 
 ```bash
 dotnet build -c Release -p:Optimize=true
